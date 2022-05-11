@@ -77,7 +77,7 @@ public class BinaryTree {
                 parentNode.setRight(node.getRight());
             }
         } else {
-            TreeNode heir = findSmallestValue(node.getRight());
+            TreeNode heir = findNodeWithSmallestValue(node.getRight());
             delete(heir.getValue());
 
             heir.setLeft(node.getLeft());
@@ -92,7 +92,7 @@ public class BinaryTree {
         }
     }
 
-    private TreeNode findSmallestValue(TreeNode node) {
+    private TreeNode findNodeWithSmallestValue(TreeNode node) {
         TreeNode parentNode = node;
         TreeNode currentNode = node;
 
@@ -200,8 +200,9 @@ public class BinaryTree {
         TreeNode getRight() {
             return rightChild;
         }
-
     }
+
+
 
     public String toString() {
         List<TreeNode> childes = new ArrayList<>();
