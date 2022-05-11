@@ -203,14 +203,6 @@ public class BinaryTree {
 
     }
 
-    public TreeNode getRoot() {
-        return root;
-    }
-
-    public void setRoot(TreeNode root) {
-        this.root = root;
-    }
-
     public String toString() {
         List<TreeNode> childes = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
