@@ -109,20 +109,22 @@ public class BinaryTree {
             if (root.getRight() != null || root.getLeft() != null) {
                 List<String> ways = new ArrayList<>();
                 HashMap<String, Integer> allSums = findAllSums();
-                int maxSum = -99999999;
+                Object[] keys = allSums.keySet().toArray();
+                int maxSum = allSums.get(keys[0]);
 
-                for (String key : allSums.keySet()) {
+                for (Object key : keys) {
                     if (allSums.get(key) > maxSum) {
                         maxSum = allSums.get(key);
                         ways.clear();
-                        ways.add(key);
+                        ways.add((String) key);
                     } else if (allSums.get(key) == maxSum) {
-                        ways.add(key);
+                        ways.add((String) key);
                     }
                 }
                 return ways;
             }
         }
+
         return null;
     }
 
