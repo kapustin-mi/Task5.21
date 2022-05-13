@@ -1,107 +1,33 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTree {
-    private TreeNode root;
+    private TreeNode root = null;
 
-    public BinaryTree() {
-        root = null;
-    }
-
-    public BinaryTree(int[] treeNumbers) {
-        for (int number : treeNumbers) {
-            add(number);
-        }
-    }
-
-    public void add(int value) {
-        root = addNode(root, value);
-    }
-
-    private TreeNode addNode(TreeNode node, int value) {
-        if (node == null) {
-            return new TreeNode(value);
-        }
-
-        if (value < node.getValue()) {
-            node.setLeft(addNode(node.getLeft(), value));
-        } else if (value > node.getValue()) {
-            node.setRight(addNode(node.getRight(), value));
-        }
-
-        return node;
-    }
-
-    public void delete(int value) {
-        TreeNode node = root;
-        TreeNode parentNode = root;
-        boolean isLeftChild = true;
-
-        while (node.getValue() != value) {
-            parentNode = node;
-            if (value < node.getValue()) {
-                isLeftChild = true;
-                node = node.getLeft();
-            } else {
-                isLeftChild = false;
-                node = node.getRight();
-            }
-            if (node == null) {
-                return;
-            }
-        }
-
-        if (node.getLeft() == null && node.getRight() == null) {
-            if (node == root) {
-                root = null;
-            } else if (isLeftChild) {
-                parentNode.setLeft(null);
-            } else {
-                parentNode.setRight(null);
-            }
-        } else if (node.getRight() == null) {
-            if (node == root) {
-                root = node.getLeft();
-            } else if (isLeftChild) {
-                parentNode.setLeft(node.getLeft());
-            } else {
-                parentNode.setRight(node.getLeft());
-            }
-        } else if (node.getLeft() == null) {
-            if (node == root) {
-                root = node.getRight();
-            } else if (isLeftChild) {
-                parentNode.setLeft(node.getRight());
-            } else {
-                parentNode.setRight(node.getRight());
-            }
-        } else {
-            TreeNode heir = findNodeWithSmallestValue(node.getRight());
-            delete(heir.getValue());
-
-            heir.setLeft(node.getLeft());
-            heir.setRight(node.getRight());
-            if (node == root) {
-                root = heir;
-            } else if (isLeftChild) {
-                parentNode.setLeft(heir);
-            } else {
-                parentNode.setRight(heir);
+    public BinaryTree(String[] values) {
+        if (values != null) {
+            int centreIndex = values.length / 2;
+            if (values[centreIndex] != null) {
+                root = new TreeNode(Integer.parseInt(values[centreIndex]));
+                root.setLeft(addChildesToTree(Arrays.copyOfRange(values, 0, centreIndex)));
+                root.setRight(addChildesToTree(Arrays.copyOfRange(values, centreIndex + 1, values.length)));
             }
         }
     }
 
-    private TreeNode findNodeWithSmallestValue(TreeNode node) {
-        TreeNode parentNode = node;
-        TreeNode currentNode = node;
-
-        while (currentNode != null) {
-            parentNode = currentNode;
-            currentNode = currentNode.getLeft();
+    private TreeNode addChildesToTree(String[] values) {
+        if (values.length != 0) {
+            int centreIndex = values.length / 2;
+            if (values[centreIndex] == null) {
+                return null;
+            } else {
+                TreeNode node = new TreeNode(Integer.parseInt(values[centreIndex]));
+                node.setLeft(addChildesToTree(Arrays.copyOfRange(values, 0, centreIndex)));
+                node.setRight(addChildesToTree(Arrays.copyOfRange(values, centreIndex + 1, values.length)));
+                return node;
+            }
         }
-
-        return parentNode;
+        
+        return null;
     }
 
     public List<String> findSubtrees() {
@@ -202,8 +128,6 @@ public class BinaryTree {
         }
     }
 
-
-
     public String toString() {
         List<TreeNode> childes = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -211,7 +135,6 @@ public class BinaryTree {
 
         if (root != null) {
             sb.append(root.getValue());
-            sb.append("\n");
         } else {
             return null;
         }
@@ -227,9 +150,9 @@ public class BinaryTree {
         List<TreeNode> childes = new ArrayList<>();
         for (TreeNode root : roots) {
             if (root != null) {
+                sb.append("\n");
                 sb.append("\t".repeat(height));
                 sb.append(root.getValue());
-                sb.append("\n");
 
                 childes.add(root.getRight());
                 childes.add(root.getLeft());
