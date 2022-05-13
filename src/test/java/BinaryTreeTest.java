@@ -20,7 +20,7 @@ public class BinaryTreeTest {
     public static List<Object[]> cases() {
         return Arrays.asList(new Object[][]{
                 {new String[]{"20", "-10", "5", "15", "2", "8", "12", "18", "-11"}, List.of("L")},
-                {new String[10], null},
+                {new String[]{}, null},
                 {new String[]{"20"}, null},
                 {new String[]{"20", "10", "30"}, List.of("R")},
                 {new String[]{"10", "5", "7", "12"}, List.of("L")},

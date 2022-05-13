@@ -4,7 +4,7 @@ public class BinaryTree {
     private TreeNode root = null;
 
     public BinaryTree(String[] values) {
-        if (values != null) {
+        if (values != null && values.length != 0) {
             int centreIndex = values.length / 2;
             if (values[centreIndex] != null) {
                 root = new TreeNode(Integer.parseInt(values[centreIndex]));
@@ -26,7 +26,7 @@ public class BinaryTree {
                 return node;
             }
         }
-        
+
         return null;
     }
 
